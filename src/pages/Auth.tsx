@@ -98,8 +98,8 @@ const Auth = () => {
           </div>
           <Button
             onClick={handleGuestAccess}
-            variant="outline"
-            className="mt-4 w-full text-white border-white/20 hover:bg-white/5"
+            variant="ghost"
+            className="mt-4 w-full text-white bg-black/20 border-white/20 hover:bg-white/5"
           >
             Try as Guest
           </Button>

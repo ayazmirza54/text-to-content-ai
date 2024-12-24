@@ -48,8 +48,8 @@ export const Header = () => {
           </Button>
           <Button 
             onClick={handleLogout}
-            variant="outline" 
-            className="border-white/10 hover:bg-white/10"
+            variant="ghost" 
+            className="bg-black/20 text-gray-300 hover:text-white hover:bg-white/10 border-white/10"
           >
             Logout
           </Button>
