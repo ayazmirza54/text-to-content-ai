@@ -12,33 +12,16 @@ const Article = () => {
   const [messages, setMessages] = useState<{ role: 'user' | 'assistant', content: string }[]>([]);
 
   const generateArticle = async (userPrompt: string) => {
-    const { data: { secret: apiKey } } = await supabase.functions.invoke('get-secret', {
-      body: { name: 'GEMINI_API_KEY' }
+    const { data, error } = await supabase.functions.invoke('get-article', {
+      body: { prompt: userPrompt }
     });
 
-    const response = await fetch('https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: userPrompt
-          }]
-        }],
-        generationConfig: {
-          temperature: 0.9,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 8192,
-        }
-      })
-    });
+    if (error) {
+      console.error('Error calling edge function:', error);
+      throw error;
+    }
 
-    const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
+    return data.generatedText;
   };
 
   const { refetch: generateContent, isLoading } = useQuery({
