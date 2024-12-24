@@ -128,7 +128,7 @@
 }
 
 .sonner-toast-description {
-  @apply text-muted-foreground !important;
+  @apply text-[hsl(var(--muted-foreground))] !important;
 }
 
 .sonner-loader {
