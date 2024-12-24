@@ -142,17 +142,17 @@ const Article = () => {
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="flex gap-4">
+          <form onSubmit={handleSubmit} className="flex gap-4 items-start">
             <Textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Enter your topic or idea for an article..."
-              className="flex-1 bg-white/5 border-white/10 text-white"
+              className="flex-1 min-h-[120px] bg-white/5 border-white/10 text-white resize-none"
             />
             <Button 
               onClick={handleSubmit}
               disabled={isLoading || !prompt.trim()}
-              className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90"
+              className="shrink-0 bg-gradient-to-r from-secondary to-accent hover:opacity-90 px-8"
             >
               {isLoading ? 'Generating...' : 'Generate'}
             </Button>

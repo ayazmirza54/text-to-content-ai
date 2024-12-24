@@ -45,7 +45,7 @@ const Auth = () => {
                   inputBackground: 'rgba(255, 255, 255, 0.05)',
                   inputText: 'white',
                   dividerBackground: 'rgba(255, 255, 255, 0.1)',
-                  messageText: 'rgba(255, 255, 255, 0.8)',
+                  messageText: 'white',
                   messageTextDanger: '#ef4444',
                   anchorTextColor: '#0EA5E9',
                   anchorTextHoverColor: '#0284C7'
@@ -71,13 +71,19 @@ const Auth = () => {
                 textDecoration: 'none',
               },
               message: {
-                color: 'rgba(255, 255, 255, 0.8)',
+                padding: '0.5rem 0',
+                fontSize: '0.875rem',
+                color: 'white',
+                backgroundColor: 'transparent',
               },
               container: {
                 color: 'white',
               },
               label: {
                 color: 'rgba(255, 255, 255, 0.8)',
+                marginBottom: '0.5rem',
+                display: 'block',
+                fontSize: '0.875rem',
               },
             },
           }}
