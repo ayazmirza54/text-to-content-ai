@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Sparkles, Circle, Wave, Droplet, Leaf } from 'lucide-react';
+import { Sparkles, Circle, Droplet, Leaf } from 'lucide-react';
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export const Hero = () => {
           <Circle className="w-4 h-4 text-secondary/30 animate-pulse" />
         </div>
         <div className="absolute top-20 left-8 md:left-16">
-          <Wave className="w-6 h-6 text-accent/30 animate-pulse" style={{ animationDelay: "0.5s" }} />
+          <Sparkles className="w-6 h-6 text-accent/30 animate-pulse" style={{ animationDelay: "0.5s" }} />
         </div>
         
         {/* Top Right Decorative Elements */}
