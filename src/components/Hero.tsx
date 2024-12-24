@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Circle, Wave, Droplet, Leaf } from 'lucide-react';
 
 export const Hero = () => {
   const navigate = useNavigate();
@@ -29,6 +29,50 @@ export const Hero = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[10%] left-[5%] w-48 h-48 md:w-64 md:h-64 bg-secondary/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-[10%] right-[5%] w-48 h-48 md:w-64 md:h-64 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+      </div>
+
+      {/* Decorative Vector Elements - Mobile Optimized */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Top Left Decorative Elements */}
+        <div className="absolute top-8 left-4 md:left-8">
+          <Circle className="w-4 h-4 text-secondary/30 animate-pulse" />
+        </div>
+        <div className="absolute top-20 left-8 md:left-16">
+          <Wave className="w-6 h-6 text-accent/30 animate-pulse" style={{ animationDelay: "0.5s" }} />
+        </div>
+        
+        {/* Top Right Decorative Elements */}
+        <div className="absolute top-12 right-6 md:right-12">
+          <Droplet className="w-5 h-5 text-secondary/30 animate-pulse" style={{ animationDelay: "0.7s" }} />
+        </div>
+        
+        {/* Bottom Left Decorative Elements */}
+        <div className="absolute bottom-16 left-6 md:left-12">
+          <Leaf className="w-5 h-5 text-accent/30 animate-pulse" style={{ animationDelay: "1.2s" }} />
+        </div>
+        
+        {/* Bottom Right Decorative Elements */}
+        <div className="absolute bottom-24 right-8 md:right-16">
+          <Circle className="w-4 h-4 text-secondary/30 animate-pulse" style={{ animationDelay: "0.9s" }} />
+        </div>
+
+        {/* Dotted Pattern - Left Side */}
+        <div className="absolute left-0 top-1/3 w-20 h-20 opacity-20">
+          <div className="grid grid-cols-3 gap-2">
+            {[...Array(9)].map((_, i) => (
+              <div key={i} className="w-1.5 h-1.5 bg-secondary/50 rounded-full" />
+            ))}
+          </div>
+        </div>
+
+        {/* Dotted Pattern - Right Side */}
+        <div className="absolute right-0 bottom-1/3 w-20 h-20 opacity-20">
+          <div className="grid grid-cols-3 gap-2">
+            {[...Array(9)].map((_, i) => (
+              <div key={i} className="w-1.5 h-1.5 bg-accent/50 rounded-full" />
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="container mx-auto px-4 py-8 md:py-12 relative">
