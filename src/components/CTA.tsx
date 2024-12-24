@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 
 export const CTA = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-primary to-secondary text-white">
+    <section className="py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary to-accent opacity-20 -z-10" />
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
           Ready to Transform Your Content?
         </h2>
-        <p className="text-xl mb-8 text-white/90">
+        <p className="text-xl mb-8 text-gray-300">
           Join thousands of content creators who trust Text-to-Content.ai
         </p>
         <Button className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6">
