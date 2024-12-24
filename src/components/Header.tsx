@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "@/components/ui/use-toast";
 import { useSession } from '@/App';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export const Header = () => {
     <>
       <Button 
         variant="ghost" 
-        className="text-gray-300 hover:text-white hover:bg-white/10"
+        className="text-gray-300 hover:text-white hover:bg-white/10 font-medium tracking-wide"
         onClick={() => {
           navigate('/');
           setIsMobileMenuOpen(false);
@@ -47,7 +47,7 @@ export const Header = () => {
       </Button>
       <Button 
         variant="ghost" 
-        className="text-gray-300 hover:text-white hover:bg-white/10"
+        className="text-gray-300 hover:text-white hover:bg-white/10 font-medium tracking-wide"
         onClick={() => {
           navigate('/tools');
           setIsMobileMenuOpen(false);
@@ -62,7 +62,7 @@ export const Header = () => {
             setIsMobileMenuOpen(false);
           }}
           variant="ghost" 
-          className="bg-black/20 text-gray-300 hover:text-white hover:bg-white/10 border-white/10"
+          className="bg-black/20 text-gray-300 hover:text-white hover:bg-white/10 border-white/10 font-medium tracking-wide"
         >
           Logout
         </Button>
@@ -73,7 +73,7 @@ export const Header = () => {
             setIsMobileMenuOpen(false);
           }}
           variant="ghost" 
-          className="bg-black/20 text-gray-300 hover:text-white hover:bg-white/10 border-white/10"
+          className="bg-black/20 text-gray-300 hover:text-white hover:bg-white/10 border-white/10 font-medium tracking-wide"
         >
           Login
         </Button>
@@ -85,8 +85,11 @@ export const Header = () => {
     <header className="fixed w-full bg-primary/50 backdrop-blur-xl z-50 border-b border-white/10">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent">
-            Text-to-Content.ai
+          <div className="flex items-center space-x-2">
+            <Sparkles className="w-6 h-6 text-secondary animate-pulse" />
+            <div className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-secondary via-[#9b87f5] to-accent tracking-tight">
+              Text-to-Content.ai
+            </div>
           </div>
           
           {/* Desktop Navigation */}
