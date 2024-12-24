@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "@/components/ui/use-toast";
 
 export const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -31,8 +32,20 @@ export const Header = () => {
           Text-to-Content.ai
         </div>
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
-          <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">How it Works</a>
+          <Button 
+            variant="ghost" 
+            className="text-gray-300 hover:text-white hover:bg-white/10"
+            onClick={() => navigate('/')}
+          >
+            Home
+          </Button>
+          <Button 
+            variant="ghost" 
+            className="text-gray-300 hover:text-white hover:bg-white/10"
+            onClick={() => navigate('/tools')}
+          >
+            Tools
+          </Button>
           <Button 
             onClick={handleLogout}
             variant="outline" 

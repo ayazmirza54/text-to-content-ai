@@ -8,6 +8,7 @@ import { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import Tools from "./pages/Tools";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,14 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <Index />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/tools/*"
+                element={
+                  <ProtectedRoute>
+                    <Tools />
                   </ProtectedRoute>
                 }
               />
