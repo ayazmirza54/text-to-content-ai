@@ -3,15 +3,12 @@ import { Header } from '@/components/Header';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Copy } from "lucide-react";
-import { toast } from "sonner";
-import { useQuery } from "@tanstack/react-query";
+import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import ReactMarkdown from 'react-markdown';
 
-// Define a type for the message role
 type MessageRole = 'user' | 'assistant';
 
-// Define an interface for the message structure
 interface Message {
   role: MessageRole;
   content: string;
@@ -20,6 +17,7 @@ interface Message {
 const Article = () => {
   const [prompt, setPrompt] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const generateArticle = async (userPrompt: string) => {
     try {
@@ -39,7 +37,6 @@ const Article = () => {
         throw new Error('No content generated');
       }
 
-      console.log('Generated text:', data.generatedText);
       return data.generatedText;
     } catch (error) {
       console.error('Error generating article:', error);
@@ -47,48 +44,52 @@ const Article = () => {
     }
   };
 
-  const { refetch: generateContent, isLoading } = useQuery({
-    queryKey: ['article', prompt],
-    queryFn: () => generateArticle(prompt),
-    enabled: false,
-    retry: 1,
-    meta: {
-      onSettled: (data: string | undefined, error: Error | null) => {
-        console.log('onSettled called with data:', data, 'error:', error);
-        if (error) {
-          toast.error('Failed to generate article. Please try again.');
-          console.error('Error generating article:', error);
-        } else if (data) {
-          console.log('Setting messages with new data:', data);
-          setMessages(prevMessages => {
-            const newMessages: Message[] = [
-              ...prevMessages,
-              { role: 'user' as const, content: prompt },
-              { role: 'assistant' as const, content: data }
-            ];
-            console.log('New messages state:', newMessages);
-            return newMessages;
-          });
-          setPrompt('');
-          toast.success('Article generated successfully!');
-        }
-      }
-    }
-  });
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!prompt.trim()) return;
-    console.log('Submitting prompt:', prompt);
-    await generateContent();
+    if (!prompt.trim() || isLoading) return;
+
+    setIsLoading(true);
+    try {
+      console.log('Submitting prompt:', prompt);
+      const generatedText = await generateArticle(prompt);
+      
+      console.log('Setting messages with new data:', generatedText);
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { role: 'user' as const, content: prompt },
+        { role: 'assistant' as const, content: generatedText }
+      ]);
+      
+      setPrompt('');
+      toast({
+        title: "Success",
+        description: "Article generated successfully!"
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to generate article. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast.success('Copied to clipboard!');
+      toast({
+        title: "Success",
+        description: "Copied to clipboard!"
+      });
     } catch (err) {
-      toast.error('Failed to copy text.');
+      toast({
+        title: "Error",
+        description: "Failed to copy text.",
+        variant: "destructive"
+      });
       console.error('Failed to copy:', err);
     }
   };
