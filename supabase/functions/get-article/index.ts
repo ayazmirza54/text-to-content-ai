@@ -4,12 +4,16 @@ import { GoogleGenerativeAI } from "npm:@google/generative-ai";
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { 
+      headers: corsHeaders,
+      status: 204,
+    });
   }
 
   try {
@@ -19,12 +23,16 @@ serve(async (req) => {
     }
 
     const { prompt } = await req.json();
+    if (!prompt) {
+      throw new Error('Prompt is required');
+    }
+    
     console.log('Received prompt:', prompt);
 
     // Initialize the Generative AI model
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash-exp",
+      model: "gemini-pro",
       generationConfig: {
         temperature: 0.9,
         topK: 40,
@@ -38,16 +46,22 @@ serve(async (req) => {
     const response = await result.response;
     const generatedText = response.text();
     
-    console.log('Generated text:', generatedText);
+    console.log('Generated text length:', generatedText.length);
 
     return new Response(JSON.stringify({ generatedText }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 200,
     });
   } catch (error) {
     console.error('Error in get-article function:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ 
+        error: error.message,
+        details: error.stack 
+      }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      }
+    );
   }
 });

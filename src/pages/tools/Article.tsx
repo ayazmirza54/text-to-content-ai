@@ -51,6 +51,7 @@ const Article = () => {
     queryKey: ['article', prompt],
     queryFn: () => generateArticle(prompt),
     enabled: false,
+    retry: 1,
     meta: {
       onSettled: (data: string | undefined, error: Error | null) => {
         console.log('onSettled called with data:', data, 'error:', error);
@@ -91,8 +92,6 @@ const Article = () => {
       console.error('Failed to copy:', err);
     }
   };
-
-  console.log('Current messages state:', messages);
 
   return (
     <div className="min-h-screen bg-primary">
