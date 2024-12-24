@@ -82,7 +82,7 @@ const Article = () => {
                   {message.role === 'user' ? (
                     <p className="text-white whitespace-pre-wrap">{message.content}</p>
                   ) : (
-                    <div className="prose prose-invert max-w-none">
+                    <div className="prose prose-invert prose-p:text-white prose-headings:text-white prose-strong:text-white prose-em:text-white prose-code:text-white max-w-none">
                       <ReactMarkdown>{message.content}</ReactMarkdown>
                     </div>
                   )}
