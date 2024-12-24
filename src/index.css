@@ -123,12 +123,20 @@
   @apply border-[hsl(var(--toast-error))] !important;
 }
 
+.sonner-toast[data-type="info"] {
+  @apply border-[#0EA5E9] !important;
+}
+
 .sonner-toast-title {
   @apply text-foreground font-semibold !important;
 }
 
 .sonner-toast-description {
   @apply text-[hsl(var(--muted-foreground))] !important;
+}
+
+.sonner-toast[data-type="info"] .sonner-toast-description {
+  @apply text-[#94A3B8] !important;
 }
 
 .sonner-loader {
