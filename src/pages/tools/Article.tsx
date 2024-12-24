@@ -13,16 +13,25 @@ const Article = () => {
   const [messages, setMessages] = useState<{ role: 'user' | 'assistant', content: string }[]>([]);
 
   const generateArticle = async (userPrompt: string) => {
-    const { data, error } = await supabase.functions.invoke('get-article', {
-      body: { prompt: userPrompt }
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('get-article', {
+        body: { prompt: userPrompt }
+      });
 
-    if (error) {
-      console.error('Error calling edge function:', error);
+      if (error) {
+        console.error('Error calling edge function:', error);
+        throw error;
+      }
+
+      if (!data?.generatedText) {
+        throw new Error('No content generated');
+      }
+
+      return data.generatedText;
+    } catch (error) {
+      console.error('Error generating article:', error);
       throw error;
     }
-
-    return data.generatedText;
   };
 
   const { refetch: generateContent, isLoading } = useQuery({
@@ -36,6 +45,7 @@ const Article = () => {
           { role: 'assistant', content: data }
         ]);
         setPrompt('');
+        toast.success('Article generated successfully!');
       },
       onError: (error: Error) => {
         toast.error('Failed to generate article. Please try again.');
