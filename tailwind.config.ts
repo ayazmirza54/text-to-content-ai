@@ -37,6 +37,24 @@ export default {
           foreground: "#FFFFFF",
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: '#FFFFFF',
+            h1: { color: '#FFFFFF' },
+            h2: { color: '#FFFFFF' },
+            h3: { color: '#FFFFFF' },
+            h4: { color: '#FFFFFF' },
+            h5: { color: '#FFFFFF' },
+            h6: { color: '#FFFFFF' },
+            strong: { color: '#FFFFFF' },
+            code: { color: '#FFFFFF' },
+            blockquote: { color: '#FFFFFF' },
+            'ul > li::marker': { color: '#FFFFFF' },
+            'ol > li::marker': { color: '#FFFFFF' },
+          },
+        },
+      },
       keyframes: {
         "fade-up": {
           "0%": {
@@ -54,5 +72,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;

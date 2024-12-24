@@ -45,8 +45,8 @@ const Article = () => {
     onSuccess: (data: string) => {
       console.log('Success callback triggered with data:', data);
       setMessages(prev => [...prev,
-      { role: 'user', content: prompt },
-      { role: 'assistant', content: data }
+        { role: 'user', content: prompt },
+        { role: 'assistant', content: data }
       ]);
       setPrompt('');
       toast.success('Article generated successfully!');
@@ -60,7 +60,6 @@ const Article = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim()) return;
-
     await generateContent();
   };
 
@@ -73,70 +72,68 @@ const Article = () => {
       console.error('Failed to copy:', err);
     }
   };
-  try {
-    return (
-      <div className="min-h-screen bg-primary">
-        <Header />
-        <main className="container mx-auto px-4 pt-24 pb-12">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl font-bold text-white mb-8">Text to Article</h1>
-  
-            <div className="bg-white/5 rounded-lg p-4 mb-8 h-[500px] overflow-y-auto">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`mb-4 p-4 rounded-lg ${message.role === 'user'
+
+  return (
+    <div className="min-h-screen bg-primary">
+      <Header />
+      <main className="container mx-auto px-4 pt-24 pb-12">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl font-bold text-white mb-8">Text to Article</h1>
+
+          <div className="bg-white/5 rounded-lg p-4 mb-8 h-[500px] overflow-y-auto">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`mb-4 p-4 rounded-lg ${
+                  message.role === 'user'
                     ? 'bg-secondary/10 ml-auto max-w-[80%]'
                     : 'bg-white/10 mr-auto max-w-[80%]'
-                    }`}
-                >
-                  <div className="flex justify-between items-start gap-2">
+                }`}
+              >
+                <div className="flex justify-between items-start gap-2">
+                  <div className="flex-1">
                     {message.role === 'user' ? (
                       <p className="text-white whitespace-pre-wrap">{message.content}</p>
                     ) : (
-                      <div className="prose prose-invert prose-p:text-white prose-headings:text-white prose-strong:text-white prose-em:text-white prose-code:text-white max-w-none">
+                      <div className="prose prose-invert max-w-none">
                         <ReactMarkdown>{message.content}</ReactMarkdown>
                       </div>
                     )}
-                    {message.role === 'assistant' && (
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => copyToClipboard(message.content)}
-                        className="shrink-0"
-                      >
-                        <Copy className="h-4 w-4" />
-                      </Button>
-                    )}
                   </div>
+                  {message.role === 'assistant' && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => copyToClipboard(message.content)}
+                      className="shrink-0"
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  )}
                 </div>
-              ))}
-            </div>
-  
-            <form onSubmit={handleSubmit} className="flex gap-4">
-              <Textarea
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Enter your topic or idea for an article..."
-                className="flex-1 bg-white/5 border-white/10 text-white"
-              />
-              <Button
-                type="submit"
-                disabled={isLoading || !prompt.trim()}
-                className="shrink-0"
-              >
-                {isLoading ? 'Generating...' : 'Generate'}
-              </Button>
-            </form>
+              </div>
+            ))}
           </div>
-        </main>
-      </div>
-    );
-  } catch (error) {
-    console.error('Render error:', error);
-    return <div>Error rendering component</div>;
-  }
-  
+
+          <form onSubmit={handleSubmit} className="flex gap-4">
+            <Textarea
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Enter your topic or idea for an article..."
+              className="flex-1 bg-white/5 border-white/10 text-white"
+            />
+            <Button
+              type="submit"
+              disabled={isLoading || !prompt.trim()}
+              className="shrink-0"
+            >
+              {isLoading ? 'Generating...' : 'Generate'}
+            </Button>
+          </form>
+        </div>
+      </main>
+    </div>
+  );
 };
 
 export default Article;
