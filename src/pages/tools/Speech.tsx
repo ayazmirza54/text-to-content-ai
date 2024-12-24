@@ -149,7 +149,7 @@ const Speech = () => {
             <Button 
               onClick={handleGenerateConversation} 
               disabled={isGenerating}
-              className="w-full bg-secondary hover:bg-secondary/80"
+              className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90"
             >
               {isGenerating ? "Generating Conversation..." : "Generate Conversation"}
             </Button>

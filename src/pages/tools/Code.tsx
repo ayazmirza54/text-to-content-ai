@@ -84,7 +84,7 @@ const Code = () => {
             <Button
               onClick={generateCode}
               disabled={isLoading || !prompt.trim()}
-              className="w-full"
+              className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90"
             >
               {isLoading ? (
                 <>

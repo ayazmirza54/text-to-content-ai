@@ -149,10 +149,10 @@ const Article = () => {
               placeholder="Enter your topic or idea for an article..."
               className="flex-1 bg-white/5 border-white/10 text-white"
             />
-            <Button
-              type="submit"
+            <Button 
+              onClick={handleSubmit}
               disabled={isLoading || !prompt.trim()}
-              className="shrink-0"
+              className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90"
             >
               {isLoading ? 'Generating...' : 'Generate'}
             </Button>

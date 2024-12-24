@@ -75,7 +75,7 @@ const Infographics = () => {
             <Button
               onClick={generateInfographic}
               disabled={isLoading || !prompt.trim()}
-              className="w-full"
+              className="w-full bg-gradient-to-r from-secondary to-accent hover:opacity-90"
             >
               {isLoading ? (
                 <>
