@@ -4,12 +4,21 @@ import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSession } from '@/App';
+import { toast } from "sonner";
 
 const Auth = () => {
   const navigate = useNavigate();
   const session = useSession();
 
   useEffect(() => {
+    // Check for verification success in URL
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('verified') === 'true') {
+      toast.success("Email verified successfully! You can now log in.", {
+        duration: 5000,
+      });
+    }
+
     if (session) {
       navigate('/');
     }
