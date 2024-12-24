@@ -8,7 +8,7 @@ const corsHeaders = {
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response(null, { headers: corsHeaders })
   }
 
   try {
@@ -18,6 +18,9 @@ serve(async (req) => {
     if (!apiKey) {
       throw new Error('ElevenLabs API key not found')
     }
+
+    console.log('Generating speech for text:', text.substring(0, 100) + '...')
+    console.log('Using voice ID:', voiceId)
 
     // Call ElevenLabs API to generate speech
     const response = await fetch(
@@ -41,17 +44,21 @@ serve(async (req) => {
     )
 
     if (!response.ok) {
-      const error = await response.text()
-      console.error('ElevenLabs API error:', error)
-      throw new Error('Failed to generate speech')
+      const errorText = await response.text()
+      console.error('ElevenLabs API error:', errorText)
+      throw new Error(`Failed to generate speech: ${errorText}`)
     }
 
-    // Get the audio data
-    const audioData = await response.arrayBuffer()
+    // Get the audio data as an ArrayBuffer
+    const audioBuffer = await response.arrayBuffer()
     
-    // Convert to base64
-    const base64Audio = btoa(String.fromCharCode(...new Uint8Array(audioData)))
+    // Convert ArrayBuffer to Base64
+    const uint8Array = new Uint8Array(audioBuffer)
+    const binary = uint8Array.reduce((data, byte) => data + String.fromCharCode(byte), '')
+    const base64Audio = btoa(binary)
     const audioUrl = `data:audio/mpeg;base64,${base64Audio}`
+
+    console.log('Successfully generated audio')
 
     return new Response(
       JSON.stringify({ audioUrl }),
