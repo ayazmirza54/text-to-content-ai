@@ -6,6 +6,7 @@ import { Copy } from "lucide-react";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import ReactMarkdown from 'react-markdown';
 
 const Article = () => {
   const [prompt, setPrompt] = useState('');
@@ -78,7 +79,13 @@ const Article = () => {
                 }`}
               >
                 <div className="flex justify-between items-start gap-2">
-                  <p className="text-white whitespace-pre-wrap">{message.content}</p>
+                  {message.role === 'user' ? (
+                    <p className="text-white whitespace-pre-wrap">{message.content}</p>
+                  ) : (
+                    <div className="prose prose-invert max-w-none">
+                      <ReactMarkdown>{message.content}</ReactMarkdown>
+                    </div>
+                  )}
                   {message.role === 'assistant' && (
                     <Button
                       variant="ghost"
