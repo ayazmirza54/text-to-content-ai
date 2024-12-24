@@ -1,7 +1,10 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import { useNavigate } from 'react-router-dom';
 
 export const CTA = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-secondary to-accent opacity-20 -z-10" />
@@ -12,7 +15,10 @@ export const CTA = () => {
         <p className="text-xl mb-8 text-gray-300">
           Join thousands of content creators who trust Text-to-Content.ai
         </p>
-        <Button className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6">
+        <Button 
+          onClick={() => navigate('/tools')}
+          className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6"
+        >
           Get Started Free
         </Button>
       </div>
