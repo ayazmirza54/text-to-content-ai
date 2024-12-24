@@ -44,14 +44,21 @@ const Article = () => {
     enabled: false,
     meta: {
       onSettled: (data: string | undefined, error: Error | null) => {
+        console.log('onSettled called with data:', data, 'error:', error);
         if (error) {
           toast.error('Failed to generate article. Please try again.');
           console.error('Error generating article:', error);
         } else if (data) {
-          setMessages(prev => [...prev,
-            { role: 'user', content: prompt },
-            { role: 'assistant', content: data }
-          ]);
+          console.log('Setting messages with new data:', data);
+          setMessages(prevMessages => {
+            const newMessages = [
+              ...prevMessages,
+              { role: 'user', content: prompt },
+              { role: 'assistant', content: data }
+            ];
+            console.log('New messages state:', newMessages);
+            return newMessages;
+          });
           setPrompt('');
           toast.success('Article generated successfully!');
         }
@@ -62,6 +69,7 @@ const Article = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim()) return;
+    console.log('Submitting prompt:', prompt);
     await generateContent();
   };
 
@@ -75,6 +83,8 @@ const Article = () => {
     }
   };
 
+  console.log('Current messages state:', messages);
+
   return (
     <div className="min-h-screen bg-primary">
       <Header />
@@ -83,38 +93,44 @@ const Article = () => {
           <h1 className="text-4xl font-bold text-white mb-8">Text to Article</h1>
 
           <div className="bg-white/5 rounded-lg p-4 mb-8 h-[500px] overflow-y-auto">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`mb-4 p-4 rounded-lg ${
-                  message.role === 'user'
-                    ? 'bg-secondary/10 ml-auto max-w-[80%]'
-                    : 'bg-white/10 mr-auto max-w-[80%]'
-                }`}
-              >
-                <div className="flex justify-between items-start gap-2">
-                  <div className="flex-1">
-                    {message.role === 'user' ? (
-                      <p className="text-white whitespace-pre-wrap">{message.content}</p>
-                    ) : (
-                      <div className="prose prose-invert max-w-none">
-                        <ReactMarkdown>{message.content}</ReactMarkdown>
-                      </div>
+            {messages.length === 0 ? (
+              <div className="text-white/50 text-center py-4">
+                No messages yet. Start by entering a prompt below.
+              </div>
+            ) : (
+              messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`mb-4 p-4 rounded-lg ${
+                    message.role === 'user'
+                      ? 'bg-secondary/10 ml-auto max-w-[80%]'
+                      : 'bg-white/10 mr-auto max-w-[80%]'
+                  }`}
+                >
+                  <div className="flex justify-between items-start gap-2">
+                    <div className="flex-1">
+                      {message.role === 'user' ? (
+                        <p className="text-white whitespace-pre-wrap">{message.content}</p>
+                      ) : (
+                        <div className="prose prose-invert max-w-none">
+                          <ReactMarkdown>{message.content}</ReactMarkdown>
+                        </div>
+                      )}
+                    </div>
+                    {message.role === 'assistant' && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => copyToClipboard(message.content)}
+                        className="shrink-0"
+                      >
+                        <Copy className="h-4 w-4" />
+                      </Button>
                     )}
                   </div>
-                  {message.role === 'assistant' && (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => copyToClipboard(message.content)}
-                      className="shrink-0"
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  )}
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
 
           <form onSubmit={handleSubmit} className="flex gap-4">
