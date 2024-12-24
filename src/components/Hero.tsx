@@ -1,7 +1,10 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="pt-32 pb-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-secondary/20 to-transparent -z-10" />
@@ -17,6 +20,7 @@ export const Hero = () => {
           <Button 
             className="bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-lg px-8 py-6 animate-fade-up" 
             style={{ animationDelay: "0.4s" }}
+            onClick={() => navigate('/tools')}
           >
             Start Creating Now
           </Button>
