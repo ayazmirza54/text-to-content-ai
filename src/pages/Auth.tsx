@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSession } from '@/App';
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -23,6 +24,12 @@ const Auth = () => {
       navigate('/');
     }
   }, [session, navigate]);
+
+  const handleGuestAccess = () => {
+    // Set a flag in localStorage to indicate guest mode
+    localStorage.setItem('guestMode', 'true');
+    navigate('/tools');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary via-[#2A2F3C] to-[#1A1F2C] flex items-center justify-center p-4">
@@ -79,6 +86,24 @@ const Auth = () => {
           providers={[]}
           redirectTo={window.location.origin}
         />
+        
+        <div className="mt-6 text-center">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-white/10" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-[#1A1F2C] px-2 text-white/60">Or</span>
+            </div>
+          </div>
+          <Button
+            onClick={handleGuestAccess}
+            variant="outline"
+            className="mt-4 w-full text-white border-white/20 hover:bg-white/5"
+          >
+            Try as Guest
+          </Button>
+        </div>
       </div>
     </div>
   );

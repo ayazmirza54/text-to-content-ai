@@ -26,7 +26,9 @@ export const useSession = () => useContext(SessionContext);
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const session = useSession();
-  if (!session) {
+  const isGuest = localStorage.getItem('guestMode') === 'true';
+  
+  if (!session && !isGuest) {
     return <Navigate to="/auth" replace />;
   }
   return <>{children}</>;
