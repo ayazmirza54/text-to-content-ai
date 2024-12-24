@@ -1,28 +1,25 @@
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Auth as SupabaseAuth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSession } from '@/App';
 
-const AuthPage = () => {
+const Auth = () => {
   const navigate = useNavigate();
+  const session = useSession();
 
   useEffect(() => {
-    // Check if user is already logged in
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        navigate("/");
-      }
-    });
-  }, [navigate]);
+    if (session) {
+      navigate('/');
+    }
+  }, [session, navigate]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary via-[#2A2F3C] to-[#1A1F2C] flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white/5 backdrop-blur-xl p-8 rounded-lg shadow-xl border border-white/10">
-        <h2 className="text-2xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent">
-          Welcome to Text-to-Content.ai
-        </h2>
-        <Auth
+      <div className="w-full max-w-md bg-black/20 p-8 rounded-lg backdrop-blur-xl border border-white/10">
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">Welcome to Text-to-Content.ai</h2>
+        <SupabaseAuth
           supabaseClient={supabase}
           appearance={{
             theme: ThemeSupa,
@@ -30,25 +27,50 @@ const AuthPage = () => {
               default: {
                 colors: {
                   brand: '#0EA5E9',
-                  brandAccent: '#8B5CF6',
+                  brandAccent: '#0284C7',
                   inputBackground: 'rgba(255, 255, 255, 0.05)',
                   inputText: 'white',
                   inputPlaceholder: 'rgba(255, 255, 255, 0.5)',
+                  backgroundSecondary: 'rgba(0, 0, 0, 0.2)',
+                  backgroundPrimary: 'transparent',
                 }
               }
             },
-            className: {
-              container: 'text-white',
-              label: 'text-white',
-              button: 'bg-gradient-to-r from-secondary to-accent hover:opacity-90 text-white',
-              input: 'bg-white/5 border-white/10'
-            }
+            style: {
+              button: {
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '0.375rem',
+                padding: '0.5rem 1rem',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+              },
+              input: {
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '0.375rem',
+                padding: '0.5rem 1rem',
+                fontSize: '0.875rem',
+              },
+              anchor: {
+                color: '#0EA5E9',
+                textDecoration: 'none',
+              },
+              message: {
+                color: 'rgba(255, 255, 255, 0.8)',
+              },
+              container: {
+                color: 'white',
+              },
+              label: {
+                color: 'rgba(255, 255, 255, 0.8)',
+              },
+            },
           }}
-          theme="dark"
+          providers={[]}
+          redirectTo={window.location.origin}
         />
       </div>
     </div>
   );
 };
 
-export default AuthPage;
+export default Auth;
