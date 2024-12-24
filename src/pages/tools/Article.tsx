@@ -45,16 +45,18 @@ const Article = () => {
     queryKey: ['article', prompt],
     queryFn: () => generateArticle(prompt),
     enabled: false,
-    onSuccess: (data) => {
-      setMessages(prev => [...prev, 
-        { role: 'user', content: prompt },
-        { role: 'assistant', content: data }
-      ]);
-      setPrompt('');
-    },
-    onError: (error) => {
-      toast.error('Failed to generate article. Please try again.');
-      console.error('Error generating article:', error);
+    meta: {
+      onSuccess: (data: string) => {
+        setMessages(prev => [...prev, 
+          { role: 'user', content: prompt },
+          { role: 'assistant', content: data }
+        ]);
+        setPrompt('');
+      },
+      onError: (error: Error) => {
+        toast.error('Failed to generate article. Please try again.');
+        console.error('Error generating article:', error);
+      }
     }
   });
 
