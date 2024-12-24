@@ -12,7 +12,6 @@ const Auth = () => {
   const session = useSession();
 
   useEffect(() => {
-    // Check for verification success in URL
     const params = new URLSearchParams(window.location.search);
     if (params.get('verified') === 'true') {
       toast.success("Email verified successfully! You can now log in.", {
@@ -26,7 +25,6 @@ const Auth = () => {
   }, [session, navigate]);
 
   const handleGuestAccess = () => {
-    // Set a flag in localStorage to indicate guest mode
     localStorage.setItem('guestMode', 'true');
     navigate('/');
   };
@@ -83,7 +81,7 @@ const Auth = () => {
               },
             },
           }}
-          providers={[]}
+          providers={["google"]}
           redirectTo={window.location.origin}
         />
         
