@@ -8,9 +8,18 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import ReactMarkdown from 'react-markdown';
 
+// Define a type for the message role
+type MessageRole = 'user' | 'assistant';
+
+// Define an interface for the message structure
+interface Message {
+  role: MessageRole;
+  content: string;
+}
+
 const Article = () => {
   const [prompt, setPrompt] = useState('');
-  const [messages, setMessages] = useState<{ role: 'user' | 'assistant', content: string }[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const generateArticle = async (userPrompt: string) => {
     try {
@@ -51,10 +60,10 @@ const Article = () => {
         } else if (data) {
           console.log('Setting messages with new data:', data);
           setMessages(prevMessages => {
-            const newMessages = [
+            const newMessages: Message[] = [
               ...prevMessages,
-              { role: 'user', content: prompt },
-              { role: 'assistant', content: data }
+              { role: 'user' as const, content: prompt },
+              { role: 'assistant' as const, content: data }
             ];
             console.log('New messages state:', newMessages);
             return newMessages;
