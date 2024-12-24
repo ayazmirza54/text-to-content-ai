@@ -11,6 +11,7 @@ import Auth from "./pages/Auth";
 import Tools from "./pages/Tools";
 import Article from "./pages/tools/Article";
 import Speech from "./pages/tools/Speech";
+import Image from "./pages/tools/Image";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,7 +75,7 @@ const App = () => {
               <Route path="/tools" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
               <Route path="/tools/article" element={<ProtectedRoute><Article /></ProtectedRoute>} />
               <Route path="/tools/speech" element={<ProtectedRoute><Speech /></ProtectedRoute>} />
-              <Route path="/tools/image" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
+              <Route path="/tools/image" element={<ProtectedRoute><Image /></ProtectedRoute>} />
               <Route path="/tools/infographics" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
               <Route path="/tools/code" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
             </Routes>
