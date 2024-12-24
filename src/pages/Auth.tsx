@@ -30,9 +30,11 @@ const Auth = () => {
                   brandAccent: '#0284C7',
                   inputBackground: 'rgba(255, 255, 255, 0.05)',
                   inputText: 'white',
-                  inputPlaceholder: 'rgba(255, 255, 255, 0.5)',
-                  backgroundSecondary: 'rgba(0, 0, 0, 0.2)',
-                  backgroundPrimary: 'transparent',
+                  dividerBackground: 'rgba(255, 255, 255, 0.1)',
+                  messageText: 'rgba(255, 255, 255, 0.8)',
+                  messageTextDanger: '#ef4444',
+                  anchorTextColor: '#0EA5E9',
+                  anchorTextHoverColor: '#0284C7'
                 }
               }
             },
