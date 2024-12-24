@@ -28,7 +28,7 @@ const Auth = () => {
   const handleGuestAccess = () => {
     // Set a flag in localStorage to indicate guest mode
     localStorage.setItem('guestMode', 'true');
-    navigate('/tools');
+    navigate('/');
   };
 
   return (
