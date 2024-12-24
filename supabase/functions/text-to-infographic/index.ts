@@ -40,8 +40,19 @@ serve(async (req) => {
     const response = await result.response;
     const text = response.text();
     
-    // Parse the JSON response
-    const data = JSON.parse(text);
+    // Extract JSON from markdown response
+    const jsonMatch = text.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/);
+    if (!jsonMatch) {
+      throw new Error('Failed to extract JSON from response');
+    }
+    
+    // Parse the extracted JSON
+    const data = JSON.parse(jsonMatch[1]);
+
+    // Validate the response format
+    if (!data.title || !Array.isArray(data.points)) {
+      throw new Error('Invalid response format from AI');
+    }
 
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
