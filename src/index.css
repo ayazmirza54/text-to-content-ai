@@ -53,6 +53,12 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --toast-background: 222.2 84% 4.9%;
+    --toast-foreground: 210 40% 98%;
+    --toast-border: 217.2 32.6% 17.5%;
+    --toast-success: 143 71% 45%;
+    --toast-error: 0 84% 60%;
   }
 
   .dark {
@@ -102,4 +108,29 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Toast Styles */
+.sonner-toast {
+  @apply bg-background border border-border shadow-lg !important;
+}
+
+.sonner-toast[data-type="success"] {
+  @apply border-[hsl(var(--toast-success))] !important;
+}
+
+.sonner-toast[data-type="error"] {
+  @apply border-[hsl(var(--toast-error))] !important;
+}
+
+.sonner-toast-title {
+  @apply text-foreground font-semibold !important;
+}
+
+.sonner-toast-description {
+  @apply text-muted-foreground !important;
+}
+
+.sonner-loader {
+  @apply bg-primary !important;
 }
