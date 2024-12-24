@@ -11,7 +11,14 @@ import Auth from "./pages/Auth";
 import Tools from "./pages/Tools";
 import Article from "./pages/tools/Article";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 // Create session context
 const SessionContext = createContext<Session | null>(null);
@@ -61,22 +68,12 @@ const App = () => {
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/tools/*"
-                element={
-                  <ProtectedRoute>
-                    <Tools />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/tools/article"
-                element={
-                  <ProtectedRoute>
-                    <Article />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/tools" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
+              <Route path="/tools/article" element={<ProtectedRoute><Article /></ProtectedRoute>} />
+              <Route path="/tools/speech" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
+              <Route path="/tools/image" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
+              <Route path="/tools/infographics" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
+              <Route path="/tools/code" element={<ProtectedRoute><Tools /></ProtectedRoute>} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>

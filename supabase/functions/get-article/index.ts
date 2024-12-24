@@ -24,7 +24,7 @@ serve(async (req) => {
     // Initialize the Generative AI model
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      model: "gemini-pro",
+      model: "gemini-2.0-flash-exp",
       generationConfig: {
         temperature: 0.9,
         topK: 40,
