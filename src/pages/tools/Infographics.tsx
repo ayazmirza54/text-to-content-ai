@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import html2canvas from "html2canvas";
+import * as htmlToImage from 'html-to-image';
 import { LightModernVariant } from "@/components/infographics/LightModernVariant";
 import { LightMinimalVariant } from "@/components/infographics/LightMinimalVariant";
 import { DarkGradientVariant } from "@/components/infographics/DarkGradientVariant";
@@ -70,27 +70,16 @@ const Infographics = () => {
     }
 
     try {
-      const canvas = await html2canvas(element, {
+      const dataUrl = await htmlToImage.toPng(element, {
+        quality: 1.0,
+        pixelRatio: 2,
         backgroundColor: variantId.includes('dark') ? '#1A1F2C' : '#ffffff',
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        foreignObjectRendering: true,
-        onclone: (clonedDoc) => {
-          const clonedElement = clonedDoc.getElementById(`infographic-${variantId}`);
-          if (clonedElement) {
-            clonedElement.style.width = `${element.offsetWidth}px`;
-            clonedElement.style.height = `${element.offsetHeight}px`;
-          }
-        }
       });
       
       const link = document.createElement('a');
       link.download = `infographic-${variantId}.png`;
-      link.href = canvas.toDataURL('image/png');
-      document.body.appendChild(link);
+      link.href = dataUrl;
       link.click();
-      document.body.removeChild(link);
       
       toast({
         title: "Success",
