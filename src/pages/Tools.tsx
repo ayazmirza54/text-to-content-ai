@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from '@/components/Header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
-import { FileText, Mic, Image, LineChart, Code } from 'lucide-react';
+import { FileText, Mic, Image, LineChart, Code, HelpCircle } from 'lucide-react';
 
 const Tools = () => {
   const navigate = useNavigate();
@@ -37,6 +37,12 @@ const Tools = () => {
       description: "Convert natural language into working code snippets",
       icon: <Code className="w-12 h-12 text-secondary" />,
       route: "/tools/code"
+    },
+    {
+      title: "Text to Q&A",
+      description: "Generate comprehensive Q&A content from any topic",
+      icon: <HelpCircle className="w-12 h-12 text-secondary" />,
+      route: "/tools/qna"
     }
   ];
 

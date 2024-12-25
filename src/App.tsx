@@ -14,6 +14,7 @@ import Speech from "./pages/tools/Speech";
 import Image from "./pages/tools/Image";
 import Infographics from "./pages/tools/Infographics";
 import Code from "./pages/tools/Code";
+import QnA from "./pages/tools/QnA";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -73,6 +74,7 @@ const App = () => {
               <Route path="/tools/image" element={<ProtectedRoute><Image /></ProtectedRoute>} />
               <Route path="/tools/infographics" element={<ProtectedRoute><Infographics /></ProtectedRoute>} />
               <Route path="/tools/code" element={<ProtectedRoute><Code /></ProtectedRoute>} />
+              <Route path="/tools/qna" element={<ProtectedRoute><QnA /></ProtectedRoute>} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
