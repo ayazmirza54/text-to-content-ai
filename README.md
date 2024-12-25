@@ -1,69 +1,62 @@
-# Welcome to your Lovable project
+# Text-to-Content.ai
 
-## Project info
+A powerful AI-powered content generation platform that helps users create various types of content with ease.
 
-**URL**: https://lovable.dev/projects/ab11f939-f6a4-45da-9e0e-2042e1239f25
+## Features
 
-## How can I edit this code?
+### Current Tools
+- **Text to Article**: Generate well-structured articles from simple prompts
+- **Text to Speech**: Convert text into natural-sounding speech
+- **Text to Image**: Create stunning images from text descriptions
+- **Text to Infographics**: Transform text data into beautiful infographics
+- **Text to Code**: Convert natural language into working code snippets
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend**: React + TypeScript + Vite
+- **UI Components**: shadcn/ui + Tailwind CSS
+- **Backend**: Supabase (Authentication, Database, Edge Functions)
+- **AI Integration**: 
+  - Google's Gemini API for text generation
+  - ElevenLabs for text-to-speech
+  - Hugging Face for image generation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ab11f939-f6a4-45da-9e0e-2042e1239f25) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+1. Clone the repository
+```bash
+git clone <repository-url>
+```
 
-**Use your preferred IDE**
+2. Install dependencies
+```bash
+npm install
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+3. Set up environment variables
+Create a `.env` file with the following variables:
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+4. Start the development server
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Features
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- 🎨 Modern, responsive UI with dark mode
+- 🔐 Secure authentication with Supabase
+- ⚡ Real-time content generation
+- 📱 Mobile-friendly design
+- 🎯 Intuitive user interface
 
-**Use GitHub Codespaces**
+## Contributing
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## What technologies are used for this project?
+## License
 
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/ab11f939-f6a4-45da-9e0e-2042e1239f25) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+This project is licensed under the MIT License - see the LICENSE file for details.
