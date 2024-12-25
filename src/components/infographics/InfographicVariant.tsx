@@ -16,7 +16,7 @@ export const InfographicVariant = ({ id, title, points, variant, onDownload }: I
     switch (variant) {
       case 'light-1':
         return {
-          wrapper: "bg-white rounded-lg p-8 relative overflow-hidden bg-[linear-gradient(0deg,rgba(243,243,243,0.5)1px,transparent1px),linear-gradient(90deg,rgba(243,243,243,0.5)1px,transparent1px)] bg-[size:20px_20px]",
+          wrapper: "bg-white rounded-lg p-8 relative overflow-hidden [background:linear-gradient(0deg,rgba(243,243,243,0.5)1px,transparent1px),linear-gradient(90deg,rgba(243,243,243,0.5)1px,transparent1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]",
           title: "text-2xl font-bold text-gray-800 mb-6 relative z-10",
           point: "text-gray-700",
           numberBg: "bg-secondary",
@@ -25,7 +25,7 @@ export const InfographicVariant = ({ id, title, points, variant, onDownload }: I
         };
       case 'light-2':
         return {
-          wrapper: "bg-[#F1F0FB] rounded-lg p-8 relative overflow-hidden bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]",
+          wrapper: "bg-[#F1F0FB] rounded-lg p-8 relative overflow-hidden [background:radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]",
           title: "text-2xl font-bold text-gray-800 mb-6 relative z-10",
           point: "text-gray-700",
           numberBg: "bg-accent",
@@ -34,7 +34,7 @@ export const InfographicVariant = ({ id, title, points, variant, onDownload }: I
         };
       case 'dark-1':
         return {
-          wrapper: "bg-gradient-to-br from-gray-900 via-primary to-gray-900 rounded-lg p-8 relative overflow-hidden bg-[linear-gradient(0deg,rgba(34,34,34,0.3)1px,transparent1px),linear-gradient(90deg,rgba(34,34,34,0.3)1px,transparent1px)] bg-[size:24px_24px]",
+          wrapper: "bg-gradient-to-br from-gray-900 via-primary to-gray-900 rounded-lg p-8 relative overflow-hidden [background:linear-gradient(0deg,rgba(34,34,34,0.3)1px,transparent1px),linear-gradient(90deg,rgba(34,34,34,0.3)1px,transparent1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_at_center,black_80%,transparent_100%)]",
           title: "text-2xl font-bold text-white mb-6 relative z-10",
           point: "text-white/90",
           numberBg: "bg-secondary",
@@ -43,7 +43,7 @@ export const InfographicVariant = ({ id, title, points, variant, onDownload }: I
         };
       case 'dark-2':
         return {
-          wrapper: "bg-gray-900 rounded-lg p-8 relative overflow-hidden bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.4)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,black_80%,transparent_100%)]",
+          wrapper: "bg-gray-900 rounded-lg p-8 relative overflow-hidden [background:radial-gradient(circle_at_center,rgba(255,255,255,0.1)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,black_80%,transparent_100%)]",
           title: "text-2xl font-bold text-white mb-6 relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent",
           point: "text-white/90",
           numberBg: "bg-gradient-to-r from-secondary to-accent",
@@ -60,21 +60,21 @@ export const InfographicVariant = ({ id, title, points, variant, onDownload }: I
       {/* Background Patterns and Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Blob Gradients with reduced opacity for better pattern visibility */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full filter blur-3xl"></div>
+        <div className="absolute -top-20 -right-20 w-64 h-64 bg-secondary/5 rounded-full filter blur-3xl"></div>
+        <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-accent/5 rounded-full filter blur-3xl"></div>
         
         {/* Animated Decorative Icons */}
         <div className="absolute top-4 right-4 transform rotate-12">
-          <Circle className="w-6 h-6 text-secondary/40 animate-pulse" />
+          <Circle className="w-6 h-6 text-secondary/20 animate-pulse" />
         </div>
         <div className="absolute top-12 left-4 transform -rotate-12">
-          <Sparkles className="w-8 h-8 text-accent/40 animate-pulse" style={{ animationDelay: "0.5s" }} />
+          <Sparkles className="w-8 h-8 text-accent/20 animate-pulse" style={{ animationDelay: "0.5s" }} />
         </div>
         <div className="absolute bottom-8 right-8 transform rotate-45">
-          <Droplet className="w-7 h-7 text-secondary/40 animate-pulse" style={{ animationDelay: "0.7s" }} />
+          <Droplet className="w-7 h-7 text-secondary/20 animate-pulse" style={{ animationDelay: "0.7s" }} />
         </div>
         <div className="absolute bottom-16 left-8 transform -rotate-12">
-          <Leaf className="w-6 h-6 text-accent/40 animate-pulse" style={{ animationDelay: "1s" }} />
+          <Leaf className="w-6 h-6 text-accent/20 animate-pulse" style={{ animationDelay: "1s" }} />
         </div>
       </div>
 
