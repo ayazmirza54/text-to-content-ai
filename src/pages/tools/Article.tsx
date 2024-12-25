@@ -6,8 +6,16 @@ import { Copy } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import ReactMarkdown from 'react-markdown';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type MessageRole = 'user' | 'assistant';
+type Platform = 'twitter' | 'linkedin' | 'facebook' | 'instagram' | 'blog';
 
 interface Message {
   role: MessageRole;
@@ -18,12 +26,16 @@ const Article = () => {
   const [prompt, setPrompt] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [platform, setPlatform] = useState<Platform>('blog');
 
-  const generateArticle = async (userPrompt: string) => {
+  const generateArticle = async (userPrompt: string, selectedPlatform: Platform) => {
     try {
-      console.log('Generating article with prompt:', userPrompt);
+      console.log('Generating article with prompt:', userPrompt, 'for platform:', selectedPlatform);
       const { data, error } = await supabase.functions.invoke('get-article', {
-        body: { prompt: userPrompt }
+        body: { 
+          prompt: userPrompt,
+          platform: selectedPlatform
+        }
       });
 
       console.log('Response from edge function:', { data, error });
@@ -51,7 +63,7 @@ const Article = () => {
     setIsLoading(true);
     try {
       console.log('Submitting prompt:', prompt);
-      const generatedText = await generateArticle(prompt);
+      const generatedText = await generateArticle(prompt, platform);
       
       console.log('Setting messages with new data:', generatedText);
       setMessages(prevMessages => [
@@ -142,20 +154,40 @@ const Article = () => {
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="flex gap-4 items-start">
-            <Textarea
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Enter your topic or idea for an article..."
-              className="flex-1 min-h-[120px] bg-white/5 border-white/10 text-white resize-none"
-            />
-            <Button 
-              onClick={handleSubmit}
-              disabled={isLoading || !prompt.trim()}
-              className="shrink-0 bg-gradient-to-r from-secondary to-accent hover:opacity-90 px-8"
-            >
-              {isLoading ? 'Generating...' : 'Generate'}
-            </Button>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="w-full max-w-xs">
+              <Select
+                value={platform}
+                onValueChange={(value) => setPlatform(value as Platform)}
+              >
+                <SelectTrigger className="w-full bg-white/5 border-white/10 text-white">
+                  <SelectValue placeholder="Select platform" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="blog">Blog Post</SelectItem>
+                  <SelectItem value="twitter">Twitter/X Thread</SelectItem>
+                  <SelectItem value="linkedin">LinkedIn Article</SelectItem>
+                  <SelectItem value="facebook">Facebook Post</SelectItem>
+                  <SelectItem value="instagram">Instagram Caption</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex gap-4 items-start">
+              <Textarea
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="Enter your topic or idea for an article..."
+                className="flex-1 min-h-[120px] bg-white/5 border-white/10 text-white resize-none"
+              />
+              <Button 
+                type="submit"
+                disabled={isLoading || !prompt.trim()}
+                className="shrink-0 bg-gradient-to-r from-secondary to-accent hover:opacity-90 px-8"
+              >
+                {isLoading ? 'Generating...' : 'Generate'}
+              </Button>
+            </div>
           </form>
         </div>
       </main>

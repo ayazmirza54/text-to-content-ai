@@ -7,6 +7,14 @@ const corsHeaders = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
+const platformPrompts = {
+  blog: "Write a detailed blog post about:",
+  twitter: "Create a Twitter/X thread (using markdown numbering for each tweet) about:",
+  linkedin: "Write a professional LinkedIn article about:",
+  facebook: "Write an engaging Facebook post about:",
+  instagram: "Create an Instagram caption (including relevant hashtags) about:"
+};
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -22,12 +30,13 @@ serve(async (req) => {
       throw new Error('GEMINI_API_KEY is not set');
     }
 
-    const { prompt } = await req.json();
+    const { prompt, platform = 'blog' } = await req.json();
     if (!prompt) {
       throw new Error('Prompt is required');
     }
     
-    console.log('Received prompt:', prompt);
+    console.log('Generating content for platform:', platform);
+    console.log('With prompt:', prompt);
 
     // Initialize the Generative AI model
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -41,8 +50,12 @@ serve(async (req) => {
       },
     });
 
+    // Create platform-specific prompt
+    const platformPrompt = platformPrompts[platform as keyof typeof platformPrompts] || platformPrompts.blog;
+    const fullPrompt = `${platformPrompt} ${prompt}\n\nMake sure the content is optimized for ${platform} in terms of length, style, and format. Include relevant hashtags if appropriate for the platform.`;
+
     // Generate content
-    const result = await model.generateContent(prompt);
+    const result = await model.generateContent(fullPrompt);
     const response = await result.response;
     const generatedText = response.text();
     
