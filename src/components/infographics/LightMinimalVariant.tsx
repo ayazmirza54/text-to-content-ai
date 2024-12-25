@@ -32,7 +32,7 @@ export const LightMinimalVariant = ({ data, onDownload }: InfographicProps) => {
       </div>
       <Button
         onClick={() => onDownload('light-2')}
-        className="w-full bg-white/10 hover:bg-white/20 text-gray-700 border border-gray-200"
+        className="w-full bg-white/10 hover:bg-white/20 text-black border border-gray-200"
       >
         <Download className="mr-2 h-4 w-4" />
         Download Minimal Light
