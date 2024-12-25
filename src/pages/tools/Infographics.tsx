@@ -74,27 +74,23 @@ const Infographics = () => {
         backgroundColor: variantId.includes('dark') ? '#1A1F2C' : '#ffffff',
         scale: 2,
         useCORS: true,
-        logging: false,
+        allowTaint: true,
+        foreignObjectRendering: true,
         onclone: (clonedDoc) => {
           const clonedElement = clonedDoc.getElementById(`infographic-${variantId}`);
           if (clonedElement) {
-            // Ensure all background gradients and colors are properly rendered
             clonedElement.style.width = `${element.offsetWidth}px`;
             clonedElement.style.height = `${element.offsetHeight}px`;
-            // Force render decorative elements
-            const decorativeElements = clonedElement.querySelectorAll('.absolute');
-            decorativeElements.forEach(el => {
-              (el as HTMLElement).style.position = 'absolute';
-              (el as HTMLElement).style.transform = window.getComputedStyle(el).transform;
-            });
           }
         }
       });
       
       const link = document.createElement('a');
       link.download = `infographic-${variantId}.png`;
-      link.href = canvas.toDataURL('image/png', 1.0);
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
       
       toast({
         title: "Success",
