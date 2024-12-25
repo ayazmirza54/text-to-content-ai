@@ -60,11 +60,19 @@ const Infographics = () => {
 
   const downloadInfographic = async (variantId: string) => {
     const element = document.getElementById(`infographic-${variantId}`);
-    if (!element) return;
+    if (!element) {
+      toast({
+        title: "Error",
+        description: "Failed to find infographic element",
+        variant: "destructive",
+      });
+      return;
+    }
 
     try {
       const canvas = await html2canvas(element, {
         backgroundColor: variantId.includes('dark') ? '#1A1F2C' : '#ffffff',
+        scale: 2, // Increase quality
       });
       
       const link = document.createElement('a');
@@ -77,6 +85,7 @@ const Infographics = () => {
         description: "Infographic downloaded successfully!",
       });
     } catch (error) {
+      console.error('Error downloading infographic:', error);
       toast({
         title: "Error",
         description: "Failed to download infographic",
