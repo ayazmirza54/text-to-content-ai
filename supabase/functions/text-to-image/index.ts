@@ -20,7 +20,7 @@ serve(async (req) => {
     console.log('Generating image for prompt:', prompt)
 
     const response = await fetch(
-      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev",
+      "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
       {
         headers: {
           Authorization: `Bearer ${Deno.env.get('HUGGING_FACE_ACCESS_TOKEN')}`,
